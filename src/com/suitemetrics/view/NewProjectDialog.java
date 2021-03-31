@@ -1,5 +1,6 @@
 package com.suitemetrics.view;
 
+import com.suitemetrics.controller.Controller1;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -35,16 +36,20 @@ public class NewProjectDialog extends JDialog {
 	private JButton okButton;
 
 	private JButton cancelButton;
+        
+        private Controller1 controller;
 
-	public NewProjectDialog(JFrame parent) {
+	public NewProjectDialog(JFrame parent, Controller1 controller1) {
 		super(parent, "New Project", false);
 
-		projectNameField = new JTextField(10);
+		
 		productNameField = new JTextField(10);
+                projectNameField = new JTextField(10);
 		creatorNameField = new JTextField(10);
 		commentsField = new JTextField(10);
 		okButton = new JButton("Ok");
 		cancelButton = new JButton("Cancel");
+                this.controller = controller1;
 
 		layoutControls();
 
@@ -53,6 +58,8 @@ public class NewProjectDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+                                NewProjectDialog.this.controller.createNewProject(projectNameField.getText());
+                                System.out.println("project name is "+projectNameField.getText());
 			}
 		});
 

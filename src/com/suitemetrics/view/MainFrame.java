@@ -3,6 +3,8 @@
  */
 package com.suitemetrics.view;
 
+import com.suitemetrics.controller.Controller1;
+import com.suitemetrics.controller.ProjectController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -74,8 +76,9 @@ public class MainFrame extends JFrame {
 		splitPane.setOneTouchExpandable(true);
 
 		tabbedPane.addTab("Part 1", fpMetricsFormPanel);
-
-		newProjectDialog = new NewProjectDialog(this);
+                
+                
+		//newProjectDialog = new NewProjectDialog(this);
 		
 		languagesDialog = new LanguagePreferencesDialog(this);
 	}
@@ -141,7 +144,11 @@ public class MainFrame extends JFrame {
 		newMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				newProjectDialog.setVisible(true);
+                            ProjectController controller = new ProjectController();
+                            controller.projectDetailsPanel = MainFrame.this.projectDetailsFormPanel;
+                            newProjectDialog = new NewProjectDialog(MainFrame.this, controller);
+                            
+			    newProjectDialog.setVisible(true);
 			}
 		});
 		
