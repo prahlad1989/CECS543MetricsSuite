@@ -1,6 +1,7 @@
 package com.suitemetrics.view;
 
 import java.awt.BorderLayout;
+import java.awt.ScrollPane;
 import javax.swing.BoxLayout;
 
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -27,27 +29,24 @@ public class ProjectDetailsPanel extends JPanel {
         
 
 	public ProjectDetailsPanel() {
-		projectTree = new JTree();
+		//setLayout(new BorderLayout());
 
-		setLayout(new BorderLayout());
-
-		projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		//projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
                 
-                projectTree.getComponents();
+//                projectTree.getComponents();
                 
-                JPanel panel =new JPanel();
-                
-                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-                
-                pane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-                add(pane);
+//                JPanel panel =new JPanel();
+//                
+//                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+//                
+//                pane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//                add(pane);
 
 		// Action Listeners
 //		projectTree.addTreeSelectionListener(new TreeSelectionListener() {
 //			@Override
 //			public void valueChanged(TreeSelectionEvent e) {
 //				DefaultMutableTreeNode current = (DefaultMutableTreeNode) projectTree.getLastSelectedPathComponent();
-//
 //				System.out.println(current.getUserObject());
 //			}
 //		});
@@ -63,43 +62,59 @@ public class ProjectDetailsPanel extends JPanel {
         
         public void createNewProject(String projectName){
             
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode(projectName);
-        //create the child nodes
-         
-        //add the child nodes to the root node
-
-
-		//setLayout(new BorderLayout());
-
-		//pTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+               DefaultMutableTreeNode root = new DefaultMutableTreeNode(projectName);
+               setLayout(new BorderLayout());
+               projectTree = new JTree(root);
+               projectTree.getSelectionModel().setSelectionMode
+                                        (TreeSelectionModel.SINGLE_TREE_SELECTION);
+               this.removeAll();
+               this.add(new JScrollPane(projectTree), BorderLayout.CENTER);
+	       
                 
                     
 
 		// Action Listeners
-//		pTree.addTreeSelectionListener(new TreeSelectionListener() {
+//		projectTree.addTreeSelectionListener(new TreeSelectionListener() {
 //			@Override
 //			public void valueChanged(TreeSelectionEvent e) {
-//				DefaultMutableTreeNode current = (DefaultMutableTreeNode) pTree.getLastSelectedPathComponent();
-//
+//				DefaultMutableTreeNode current = (DefaultMutableTreeNode) projectTree.getLastSelectedPathComponent();
 //
 //				System.out.println(current.getUserObject());
 //			}
 //		});
-
-		
-               JTree tree = new JTree(root);
-               JPanel panal =  (JPanel)(pane.getViewport().getView());
-               panal.add(tree);
+//               
                
                 revalidate();
                 repaint();
                 System.out.println();
             
         }
+        
+        
+        public void createNewMetric(String metricName){
+            DefaultMutableTreeNode node = new DefaultMutableTreeNode(metricName);
+            DefaultMutableTreeNode root = (DefaultMutableTreeNode)(projectTree.getModel().getRoot());
+            root.add(node);
+//            projectTree.repaint();
+//            projectTree.revalidate();
+            
+            //projectTree.setSelectionPath(new TreePath(node.getPath()));
+            //projectTree.expandPath(path);
+            projectTree = new JTree(root);
+            projectTree.getSelectionModel().setSelectionMode
+                                        (TreeSelectionModel.SINGLE_TREE_SELECTION);
+            this.removeAll();
+            this.add(new JScrollPane(projectTree), BorderLayout.CENTER);
+            
+	    repaint();  
+            revalidate();
+            
+            
+            
+            
+        
+        }
+        
 
-	@SuppressWarnings("unused")
-	private DefaultMutableTreeNode createTree() {
-		return null;
-	}
 
 }
