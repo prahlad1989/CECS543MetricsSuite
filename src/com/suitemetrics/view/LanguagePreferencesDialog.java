@@ -18,13 +18,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.suitemetrics.model.Language;
+import java.io.Serializable;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 
 /**
  *
  */
-public class LanguagePreferencesDialog extends JDialog {
+public class LanguagePreferencesDialog extends JDialog implements Serializable{
 
 	private static final long serialVersionUID = 8284938236897072282L;
 
@@ -55,6 +56,13 @@ public class LanguagePreferencesDialog extends JDialog {
 	private ButtonGroup languageGroup;
 
 	private JButton doneButton;
+        
+        private ILanguageUpdate panelNeedLanguage;
+
+
+    public void setPanelNeedLanguage(ILanguageUpdate panelNeedLanguage) {
+        this.panelNeedLanguage = panelNeedLanguage;
+    }
 
 	public LanguagePreferencesDialog(JFrame parent) {
 		super(parent, "Language", false);
@@ -81,6 +89,12 @@ public class LanguagePreferencesDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+                                Language selectedLanguage = Language.valueOf(languageGroup.getSelection().getActionCommand());
+                                ((MainFrame)parent).updateLaunguage(selectedLanguage);
+                                if(panelNeedLanguage != null){
+                                    panelNeedLanguage.updateLaunguage(selectedLanguage);
+                                }
+ 
 			}
 		});
 

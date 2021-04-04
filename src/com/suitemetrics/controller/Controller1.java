@@ -5,6 +5,7 @@
  */
 package com.suitemetrics.controller;
 
+import com.suitemetrics.view.FPMetricsFormPanel;
 import com.suitemetrics.view.ProjectDetailsPanel;
 
 /**
@@ -12,6 +13,8 @@ import com.suitemetrics.view.ProjectDetailsPanel;
  * @author prahlad
  */
 public interface Controller1 {
-    public void createNewProject(String projectName);
+    //public void createNewProject(String projectName);
+    public void createNewMetric(String metricName);
+    public void createNewMetric(String fpName, FPMetricsFormPanel fpMetricsFormPanel);
     
 }

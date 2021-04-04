@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ import javax.swing.border.Border;
 /**
  *
  */
-public class NewProjectDialog extends JDialog {
+public class NewProjectDialog extends JDialog implements Serializable{
 
 	private static final long serialVersionUID = 3877101414215581632L;
 
@@ -37,19 +38,20 @@ public class NewProjectDialog extends JDialog {
 
 	private JButton cancelButton;
         
-        private Controller1 controller;
+       
+        
+        private MainFrame parent;
 
-	public NewProjectDialog(JFrame parent, Controller1 controller1) {
+	public NewProjectDialog(MainFrame parent) {
 		super(parent, "New Project", false);
 
-		
+		this.parent = parent;
 		productNameField = new JTextField(10);
                 projectNameField = new JTextField(10);
 		creatorNameField = new JTextField(10);
 		commentsField = new JTextField(10);
 		okButton = new JButton("Ok");
 		cancelButton = new JButton("Cancel");
-                this.controller = controller1;
 
 		layoutControls();
 
@@ -58,7 +60,7 @@ public class NewProjectDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-                                NewProjectDialog.this.controller.createNewProject(projectNameField.getText());
+                                parent.createNewProject(projectNameField.getText());
                                 System.out.println("project name is "+projectNameField.getText());
 			}
 		});

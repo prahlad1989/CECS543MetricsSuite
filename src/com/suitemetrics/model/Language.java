@@ -3,10 +3,12 @@
  */
 package com.suitemetrics.model;
 
+import java.io.Serializable;
+
 /**
  *
  */
-public enum Language {
+public enum Language implements Serializable{
 
 	ASSEMBLER("Assembler"), ADA95("Ada 95"), C("C"), CPP("C++"), CSHARP("C#"), COBOL("COBOL"), FORTRAN("FORTRAN"), HTML(
 			"HTML"), JAVA("Java"), JAVASCRIPT("JavaScript"), VBSCRIPT("VBScript"), VISUALBASIC("Visual Basic");
