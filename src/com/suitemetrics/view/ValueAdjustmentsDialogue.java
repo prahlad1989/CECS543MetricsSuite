@@ -30,7 +30,7 @@ import javax.swing.border.Border;
 
 /**
  *
- * @author prahlad
+ * @author 
  */
 class ValueAdjustmentsDialogue extends JDialog implements Serializable{
     private static final long serialVersionUID = 3875114234343581632L;

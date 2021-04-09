@@ -14,7 +14,7 @@ import javax.swing.JTree;
 
 /**
  *
- * @author prahlad
+ * @author 
  */
 public class ProjectDetails implements Serializable{
     public Component[] panels;

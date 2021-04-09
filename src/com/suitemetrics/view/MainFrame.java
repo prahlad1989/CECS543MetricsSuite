@@ -37,7 +37,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author prahlad
+ * @author 
  */
 public class MainFrame extends JFrame implements ILanguageUpdate{
 

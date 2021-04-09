@@ -10,7 +10,7 @@ import com.suitemetrics.view.ProjectDetailsPanel;
 
 /**
  *
- * @author prahlad
+ * @author 
  */
 public interface Controller1 {
     //public void createNewProject(String projectName);

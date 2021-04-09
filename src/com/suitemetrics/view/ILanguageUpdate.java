@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author prahlad
+ * @author 
  */
 public interface ILanguageUpdate extends Serializable{
     public void updateLaunguage(Language s);
