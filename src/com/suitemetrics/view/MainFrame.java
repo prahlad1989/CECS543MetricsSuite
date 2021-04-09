@@ -99,17 +99,14 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
     }
 
     private void initializePanels() {
-
-
         projectDetailsFormPanel = new ProjectDetailsPanel(this);
-
 
         tabbedPane = new JTabbedPane();
 
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, projectDetailsFormPanel, tabbedPane);
-        splitPane.setOneTouchExpandable(true);
-
+        splitPane.setOneTouchExpandable(true); 
         languagesDialog = new LanguagePreferencesDialog(this);
+        language = Language.C;
     }
 
     private JMenuBar createMenuBar() {
@@ -242,7 +239,9 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
                 String fpName = JOptionPane.showInputDialog(MainFrame.this, "Name of this FP", "Input",
                         JOptionPane.QUESTION_MESSAGE);
                 System.out.println(fpName);
-                fpMetricsFormPanel = new FPMetricsFormPanel(MainFrame.this, language, languagesDialog);
+                fpMetricsFormPanel = new FPMetricsFormPanel(language, languagesDialog);
+                fpMetricsFormPanel.setParent(MainFrame.this);
+                fpMetricsFormPanel.initializeButtonActions();
                 fpMetricsFormPanel.setName(fpName);
                 tabbedPane.addTab(fpName, fpMetricsFormPanel);
                 projectDetailsFormPanel.createNewMetric(fpName);
@@ -268,6 +267,7 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
      * @param projectName
      */
     public void createNewProject(String projectName) {
+        tabbedPane.removeAll();
         projectDetails = new ProjectDetails(projectName);
         projectDetailsFormPanel.createNewProject(projectName);
     }
@@ -304,10 +304,12 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
         projectDetails.language = details.language;
         tabbedPane.removeAll();
         for (Component c : projectDetails.panels) {
+            ((FPMetricsFormPanel)c).setParent(this);
+            ((FPMetricsFormPanel)c).initializeButtonActions();
             tabbedPane.add(c.getName(), c);
             c.setVisible(true);
         }
-
+        
     }
 
     @Override

@@ -33,7 +33,7 @@ import javax.swing.border.Border;
  * @author prahlad
  */
 class ValueAdjustmentsDialogue extends JDialog implements Serializable{
-    private static final long serialVersionUID = 3877101414215581632L;
+    private static final long serialVersionUID = 3875114234343581632L;
 
 	private JTextField projectNameField;
 
@@ -48,8 +48,6 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
 	private JButton cancelButton;
         
         private Controller1 controller;
-        
-        private MainFrame parent;
         
         private FPMetricsFormPanel fPMetricsFormPanel;
         
@@ -93,13 +91,13 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
 
 	public ValueAdjustmentsDialogue(MainFrame parent, FPMetricsFormPanel fPMetricsFormPanel) {
 		super(parent, "Value Adjustment Factors", false);
-		this.parent = parent;
+
 
 		okButton = new JButton("Done");
 		cancelButton = new JButton("Cancel");
                 this.fPMetricsFormPanel = fPMetricsFormPanel;
 		layoutControls();
-		setSize(900, 500);
+		setSize(900, 600);
 		setLocationRelativeTo(parent);
                 
                 
@@ -148,7 +146,7 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
 		// Add sub panels to the Dialog
 		setLayout(new BorderLayout());
 		add(controlsPanel, BorderLayout.NORTH);
-		add(buttonsPanel, BorderLayout.SOUTH);
+		add(buttonsPanel, BorderLayout.CENTER);
                 
                 okButton.addActionListener(new ActionListener() {
 			@Override

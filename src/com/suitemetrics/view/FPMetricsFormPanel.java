@@ -51,9 +51,13 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         this.language = language;
     }
 
-    private LanguagePreferencesDialog languagesDialog;
+    private transient LanguagePreferencesDialog languagesDialog;
 
-    private MainFrame parent;
+    private transient MainFrame parent;
+
+    public void setParent(MainFrame parent) {
+        this.parent = parent;
+    }
 
     private JTextField totalCountTextField;
 
@@ -69,7 +73,7 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
     private JTextField currentLanguageTextField;
     private JTextField computeCodeSizeTextField;
     private List<MetricControl> metricControls;
-    private ValueAdjustmentsDialogue vDialogue;
+    private  ValueAdjustmentsDialogue vDialogue;
 
     class MetricControl implements Serializable {
 
@@ -108,6 +112,17 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         String weigngingFactor;
     }
 
+    public FPMetricsFormPanel( Language language, LanguagePreferencesDialog languagesDialog) {
+        this.language = language;
+        this.languagesDialog = languagesDialog;
+        initialize();
+    }
+    
+    
+    
+    
+    
+    
     private void initialize() {
 
         headerLabel = new JLabel("Weighting Factors");
@@ -134,7 +149,7 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         computeCodeSizeTextField = new JTextField();
         computeCodeSizeTextField.setEditable(false);
 
-        vDialogue = new ValueAdjustmentsDialogue(parent, FPMetricsFormPanel.this);
+        
 
         MetricControl[] metricControlsTemp = {
             new MetricControl("External Inputs", "3", "4", "6"),
@@ -148,7 +163,16 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         for (MetricControl mc : metricControlsTemp) {
             metricControls.add(mc);
         }
-        changeLanguageButton.addActionListener(new ActionListener() {
+        
+
+        layoutComponents();
+    }
+
+    
+    
+    public void initializeButtonActions(){
+    
+    changeLanguageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 languagesDialog.setPanelNeedLanguage(FPMetricsFormPanel.this);
@@ -160,11 +184,14 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         valueAdjustmentsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                
+                if(vDialogue == null)vDialogue = new ValueAdjustmentsDialogue(parent, FPMetricsFormPanel.this);
                 vDialogue.setVisible(true);
             }
 
         });
+        
+        
 
         computeFPButton.addActionListener(new ActionListener() {
             @Override
@@ -178,27 +205,18 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
                     if (temp != null && temp.trim().length() > 0) {
                         valueAdjs = Integer.parseInt(temp);
                     }
-                    Double fpCalc = totalCount * .65;
+                    Double fpCalc = totalCount *( .65 +valueAdjs* .01);
                     fpCalc = Math.round(fpCalc * 100) / 100.0;
                     fpComputedTextField.setText(fpCalc.toString());
 
                 } catch (NumberFormatException ex) {
-                        
+                        ex.printStackTrace();
                 }
             }
 
         });
-
-        layoutComponents();
     }
-
-    public FPMetricsFormPanel(MainFrame parent, Language language, LanguagePreferencesDialog languagesDialog) {
-        this.language = language;
-        this.parent = parent;
-        this.languagesDialog = languagesDialog;
-        initialize();
-    }
-
+    
     private void updateTotalCount() {
         Integer totalCount = 0;
         for (MetricControl mc : metricControls) {
@@ -339,6 +357,7 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         this.language = l;
         String currentLanguage = language != null ? language.toString() : "None";
         currentLanguageTextField.setText(currentLanguage);
+        languagesDialog.setPanelNeedLanguage(null);
     }
 
     public void updateVAF(Integer i) {

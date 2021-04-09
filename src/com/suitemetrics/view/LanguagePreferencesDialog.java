@@ -25,9 +25,9 @@ import javax.swing.AbstractButton;
 /**
  *
  */
-public class LanguagePreferencesDialog extends JDialog implements Serializable{
+ public class LanguagePreferencesDialog extends JDialog implements Serializable{
 
-	private static final long serialVersionUID = 8284938236897072282L;
+	private static final long serialVersionUID = 8284978233497072282L;
 
 //	private JCheckBox assemblerCheckBox;
 //

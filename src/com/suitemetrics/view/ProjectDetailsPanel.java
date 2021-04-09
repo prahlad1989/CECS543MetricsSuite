@@ -2,6 +2,7 @@ package com.suitemetrics.view;
 
 import com.suitemetrics.controller.Controller1;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,6 +37,11 @@ public class ProjectDetailsPanel extends JPanel {
 
     public ProjectDetailsPanel(MainFrame parent) {
         this.parent = parent;
+        setLayout(new BorderLayout());
+        setVisible(true);
+        setSize(100, 400);
+        setMinimumSize(new Dimension(100, 700));
+         
     }
 
     public ProjectDetailsPanel(Controller1 controller) {
@@ -99,6 +105,8 @@ public class ProjectDetailsPanel extends JPanel {
         DefaultMutableTreeNode child = new DefaultMutableTreeNode(metricName);
         model.insertNodeInto(child, root, root.getChildCount());
         projectTree.scrollPathToVisible(new TreePath(child.getPath()));
+        
+        
     }
 
 }

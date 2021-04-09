@@ -17,7 +17,6 @@ import javax.swing.JTree;
  * @author prahlad
  */
 public class ProjectDetails implements Serializable{
-    public JTabbedPane jTabbedPane;
     public Component[] panels;
     public JTree jTree; 
     String projectName;
