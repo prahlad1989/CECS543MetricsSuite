@@ -35,24 +35,24 @@ import javax.swing.border.Border;
 class ValueAdjustmentsDialogue extends JDialog implements Serializable{
     private static final long serialVersionUID = 3875114234343581632L;
 
-	private JTextField projectNameField;
+	protected JTextField projectNameField;
 
-	private JTextField productNameField;
+	protected JTextField productNameField;
 
-	private JTextField creatorNameField;
+	protected JTextField creatorNameField;
 
-	private JTextField commentsField;
+	protected JTextField commentsField;
 
-	private JButton okButton;
+	protected JButton okButton;
 
-	private JButton cancelButton;
+	protected JButton cancelButton;
         
-        private Controller1 controller;
+        protected Controller1 controller;
         
-        private FPMetricsFormPanel fPMetricsFormPanel;
+        protected FPMetricsFormPanel fPMetricsFormPanel;
         
-        private String[] valueAdjustStrs = {
-           "Does the System Require reliable backup and recovery process?",
+        protected String[] valueAdjustStrs = {
+                      "Does the System Require reliable backup and recovery process?",
             "Are specialized data communications required to transefer information to or from the application?",
             "Are there distributed processing functions?",
             "Is performace critical?",
@@ -69,7 +69,9 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
                 
         };
         
-        private JComboBox<Integer>[] valueAdjustCombos;
+        protected JPanel controlsPanel = new JPanel();
+        
+        protected JComboBox<Integer>[] valueAdjustCombos;
         
 //        class ValueAdjust{
 //            private Integer[] values ={0,1,2,3,4,5};
@@ -100,11 +102,22 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
 		setSize(900, 600);
 		setLocationRelativeTo(parent);
                 
+	}
+        
+        public ValueAdjustmentsDialogue(String panelName, MainFrame parent, FPMetricsFormPanel fPMetricsFormPanel) {
+		super(parent, panelName, false);
+		okButton = new JButton("Done");
+		cancelButton = new JButton("Cancel");
+                this.fPMetricsFormPanel = fPMetricsFormPanel;
+		//layoutControls();
+		setSize(900, 600);
+		setLocationRelativeTo(parent);
                 
 	}
 
-	private void layoutControls() {
-		JPanel controlsPanel = new JPanel();
+
+	protected void layoutControls() {
+		
 		Border spaceBorder = BorderFactory.createEmptyBorder(15, 15, 15, 15);
 		Border titleBorder = BorderFactory.createTitledBorder("Value adjustment factors");
 		controlsPanel.setBorder(BorderFactory.createCompoundBorder(spaceBorder, titleBorder));
@@ -160,7 +173,7 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
                                         vafSum+= selected;
                                     }
                                 }
-                                fPMetricsFormPanel.updateVAF(vafSum);
+                                fPMetricsFormPanel.updateVAF(new Double(vafSum));
                                 
 			}
 		});

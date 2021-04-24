@@ -27,21 +27,21 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
 
     private static final long serialVersionUID = -615865897345801346L;
 
-    private JLabel headerLabel;
+    protected JLabel headerLabel;
 
-    private JLabel simpleFactorLabel;
+    protected JLabel simpleFactorLabel=new JLabel("Simple");
 
-    private JLabel avgFactorLabel;
+    protected JLabel avgFactorLabel = new JLabel("Average");
 
-    private JLabel complextFactorLabel;
+    protected JLabel complextFactorLabel = new JLabel("Complex");
+    
+     
 
+    protected JLabel totalCountLabel;
 
+    protected JLabel currentLanguageLabel;
 
-    private JLabel totalCountLabel;
-
-    private JLabel currentLanguageLabel;
-
-    private Language language;
+    protected Language language;
 
     public Language getLanguage() {
         return language;
@@ -51,29 +51,30 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         this.language = language;
     }
 
-    private transient LanguagePreferencesDialog languagesDialog;
+    protected transient LanguagePreferencesDialog languagesDialog;
 
-    private transient MainFrame parent;
+    protected transient MainFrame parent;
 
     public void setParent(MainFrame parent) {
         this.parent = parent;
     }
 
-    private JTextField totalCountTextField;
+    protected JTextField totalCountTextField;
 
-    private JButton computeFPButton;
-    private JTextField fpComputedTextField;
+    protected JButton computeFPButton;
+    protected JTextField fpComputedTextField;
 
-    private JButton valueAdjustmentsButton;
+    protected JButton valueAdjustmentsButton;
 
-    private JButton computeCodeSizeButton;
+    protected JButton computeCodeSizeButton;
 
-    private JButton changeLanguageButton;
-    private JTextField valueAdjustmentsTextField;
-    private JTextField currentLanguageTextField;
-    private JTextField computeCodeSizeTextField;
-    private List<MetricControl> metricControls;
-    private  ValueAdjustmentsDialogue vDialogue;
+    protected JButton changeLanguageButton;
+    protected JTextField valueAdjustmentsTextField;
+    protected JTextField currentLanguageTextField;
+    protected JTextField computeCodeSizeTextField;
+    protected List<MetricControl> metricControls;
+    protected  ValueAdjustmentsDialogue vDialogue;
+    protected String vDialogueName = "Value Adjustment Factors";
 
     class MetricControl implements Serializable {
 
@@ -118,12 +119,7 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         initialize();
     }
     
-    
-    
-    
-    
-    
-    private void initialize() {
+    public void initialize() {
 
         headerLabel = new JLabel("Weighting Factors");
         simpleFactorLabel = new JLabel("Simple");
@@ -148,8 +144,6 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         currentLanguageTextField.setEditable(false);
         computeCodeSizeTextField = new JTextField();
         computeCodeSizeTextField.setEditable(false);
-
-        
 
         MetricControl[] metricControlsTemp = {
             new MetricControl("External Inputs", "3", "4", "6"),
@@ -185,7 +179,12 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                if(vDialogue == null)vDialogue = new ValueAdjustmentsDialogue(parent, FPMetricsFormPanel.this);
+                if(vDialogue == null){
+                    vDialogue = new ValueAdjustmentsDialogue(vDialogueName,parent, FPMetricsFormPanel.this);
+                    
+                    vDialogue.layoutControls();
+                }
+                    
                 vDialogue.setVisible(true);
             }
 
@@ -360,8 +359,8 @@ public class FPMetricsFormPanel extends JPanel implements ILanguageUpdate, Seria
         languagesDialog.setPanelNeedLanguage(null);
     }
 
-    public void updateVAF(Integer i) {
-        valueAdjustmentsTextField.setText(i.toString());
+    public void updateVAF(Double i) {
+        valueAdjustmentsTextField.setText(Math.round(i)+"");
     }
 
 }

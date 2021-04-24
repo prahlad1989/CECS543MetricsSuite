@@ -45,7 +45,7 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
 
     private ProjectDetailsPanel projectDetailsFormPanel;
 
-    private FPMetricsFormPanel fpMetricsFormPanel;
+    private FPMetricsFormPanel metricsFormPanel;
 
     private FPMetricsFormPanel[] fpMetricsFormPanelList;
 
@@ -74,6 +74,19 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
     /**
      *
      */
+    
+    public void justForTest(){
+        createNewProject("project123");
+        metricsFormPanel = new UCPMetricsFormPanel(language, languagesDialog);
+                metricsFormPanel.setParent(MainFrame.this);
+                metricsFormPanel.initializeButtonActions();
+                String ucpName = "ucpMetric1";
+                metricsFormPanel.setName(ucpName);
+                tabbedPane.addTab(ucpName, metricsFormPanel);
+                projectDetailsFormPanel.createNewMetric(ucpName);
+                metricsFormPanel.setVisible(true);
+    }
+    
     public MainFrame() {
         super("CECS 543 Metrics Suite");
 
@@ -96,6 +109,7 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(1000, 800);
         setMinimumSize(new Dimension(900, 700));
+        justForTest();
     }
 
     private void initializePanels() {
@@ -137,6 +151,8 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
         JMenuItem smiMenuItem = new JMenuItem("SMI");
         JMenuItem ooMetricsMenuItem = new JMenuItem("OO Metrics");
 
+        JMenuItem ucpMenu = new JMenuItem("UCP Metrics");
+        
         JMenuItem fpDataMenuItem = new JMenuItem("Enter FP Data");
         JMenuItem computeCodeSizeMenuItem = new JMenuItem("Compute Code Size");
         fpMenu.add(fpDataMenuItem);
@@ -144,6 +160,8 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
         fpMenu.add(computeCodeSizeMenuItem);
 
         metricsMenu.add(fpMenu);
+        metricsMenu.addSeparator();
+        metricsMenu.add(ucpMenu);
         metricsMenu.addSeparator();
         metricsMenu.add(smiMenuItem);
         metricsMenu.addSeparator();
@@ -239,16 +257,34 @@ public class MainFrame extends JFrame implements ILanguageUpdate{
                 String fpName = JOptionPane.showInputDialog(MainFrame.this, "Name of this FP", "Input",
                         JOptionPane.QUESTION_MESSAGE);
                 System.out.println(fpName);
-                fpMetricsFormPanel = new FPMetricsFormPanel(language, languagesDialog);
-                fpMetricsFormPanel.setParent(MainFrame.this);
-                fpMetricsFormPanel.initializeButtonActions();
-                fpMetricsFormPanel.setName(fpName);
-                tabbedPane.addTab(fpName, fpMetricsFormPanel);
+                metricsFormPanel = new FPMetricsFormPanel(language, languagesDialog);
+                metricsFormPanel.setParent(MainFrame.this);
+                metricsFormPanel.initializeButtonActions();
+                metricsFormPanel.setName(fpName);
+                tabbedPane.addTab(fpName, metricsFormPanel);
                 projectDetailsFormPanel.createNewMetric(fpName);
-                fpMetricsFormPanel.setVisible(true);
+                metricsFormPanel.setVisible(true);
 
             }
         });
+        
+        ucpMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String ucpName = JOptionPane.showInputDialog(MainFrame.this, "Name of this UCP", "Input",
+                        JOptionPane.QUESTION_MESSAGE);
+                System.out.println(ucpName);
+                metricsFormPanel = new UCPMetricsFormPanel(language, languagesDialog);
+                metricsFormPanel.setParent(MainFrame.this);
+                //metricsFormPanel.initializeButtonActions();
+                metricsFormPanel.setName(ucpName);
+                tabbedPane.addTab(ucpName, metricsFormPanel);
+                projectDetailsFormPanel.createNewMetric(ucpName);
+                metricsFormPanel.setVisible(true);
+
+            }
+        });
+        
 
         return menuBar;
     }
