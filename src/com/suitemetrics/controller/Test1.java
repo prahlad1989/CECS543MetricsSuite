@@ -11,11 +11,11 @@ package com.suitemetrics.controller;
  */
 public class Test1 {
     public Integer a =10;
+    public String s= "s";
     public Integer b =20;
     
     public int getSum(){
-        System.out.println(this.a+"   "+this.b);
-        return this.a+this.b;
+        return this.a;
     }
     
 }

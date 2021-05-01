@@ -73,28 +73,9 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
         
         protected JComboBox<Integer>[] valueAdjustCombos;
         
-//        class ValueAdjust{
-//            private Integer[] values ={0,1,2,3,4,5};
-//            JLabel label;
-//            JComboBox<Integer> combo;
-//            public ValueAdjust(String name){
-//                label = new JLabel(name);
-//                combo = new JComboBox<Integer>(values);
-//                combo.setSelectedIndex(0);
-//            }
-//            public ValueAdjust(){
-//            }
-//            
-//            
-//        }
-        
-        
-        
 
 	public ValueAdjustmentsDialogue(MainFrame parent, FPMetricsFormPanel fPMetricsFormPanel) {
 		super(parent, "Value Adjustment Factors", false);
-
-
 		okButton = new JButton("Done");
 		cancelButton = new JButton("Cancel");
                 this.fPMetricsFormPanel = fPMetricsFormPanel;
@@ -114,6 +95,10 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
 		setLocationRelativeTo(parent);
                 
 	}
+        
+        public double calculateFinalVAF(double d){
+            return d;
+        }
 
 
 	protected void layoutControls() {
@@ -173,7 +158,7 @@ class ValueAdjustmentsDialogue extends JDialog implements Serializable{
                                         vafSum+= selected;
                                     }
                                 }
-                                fPMetricsFormPanel.updateVAF(new Double(vafSum));
+                                fPMetricsFormPanel.updateVAF(calculateFinalVAF(new Double(vafSum)));
                                 
 			}
 		});

@@ -13,6 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -48,6 +49,7 @@ public class ECFAdjustDialogue extends ValueAdjustmentsDialogue{
      protected void layoutControls() {
 	 super.valueAdjustStrs = valueAdjustStrs;	
          super.layoutControls();
+                okButton.removeAll();
                 okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -65,13 +67,8 @@ public class ECFAdjustDialogue extends ValueAdjustmentsDialogue{
                                 
 			}
 		});
-
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
+                
+		
                 
 	}
 }
